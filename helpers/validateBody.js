@@ -5,6 +5,7 @@ const validateBody = (schema) => {
     const { error } = schema.validate(req.body);
     if (error) {
       next(HttpError(400, error.message));
+      return;
     }
     next();
   };
