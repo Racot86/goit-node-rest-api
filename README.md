@@ -27,11 +27,34 @@ curl -X POST http://localhost:3000/api/auth/register \
   -d '{"email": "user@example.com", "password": "password123"}'
 ```
 
+Response:
+```json
+{
+  "user": {
+    "email": "user@example.com",
+    "subscription": "starter",
+    "avatarURL": "https://s.gravatar.com/avatar/..."
+  }
+}
+```
+
 ### Login
 ```bash
 curl -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email": "user@example.com", "password": "password123"}'
+```
+
+Response:
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "email": "user@example.com",
+    "subscription": "starter",
+    "avatarURL": "https://s.gravatar.com/avatar/..."
+  }
+}
 ```
 
 ### Logout (requires authentication)
@@ -44,6 +67,30 @@ curl -X POST http://localhost:3000/api/auth/logout \
 ```bash
 curl -X GET http://localhost:3000/api/auth/current \
   -H "Authorization: Bearer YOUR_TOKEN"
+```
+
+Response:
+```json
+{
+  "email": "user@example.com",
+  "subscription": "starter",
+  "avatarURL": "https://s.gravatar.com/avatar/..."
+}
+```
+
+### Update avatar (requires authentication)
+```bash
+curl -X PATCH http://localhost:3000/api/auth/avatars \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: multipart/form-data" \
+  -F "avatar=@/path/to/image.jpg"
+```
+
+Response:
+```json
+{
+  "avatarURL": "/avatars/1_image.jpg"
+}
 ```
 
 ## Contacts Endpoints (all require authentication)
