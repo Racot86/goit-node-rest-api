@@ -1,0 +1,36 @@
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const config = {
+    host: 'smtp.ukr.net',
+    port: 465,
+    secure: true,
+    auth: {
+        user: 'goitnodeapp@ukr.net',
+        pass: process.env.MAIL_APP_PASSWORD,
+    },
+};
+
+const transporter = nodemailer.createTransport(config);
+
+const sendMail = async (options = {}) => {
+    const emailOptions = {
+        from: 'goitnodeapp@ukr.net',
+        to: 'mayevskydv@gmail.com',
+        subject: 'Nodemailer test',
+        text: 'Привіт. Ми тестуємо надсилання листів!',
+        ...options
+    };
+
+    try {
+        const info = await transporter.sendMail(emailOptions);
+        return info;
+    } catch (error) {
+        console.error('Error sending email:', error);
+        throw error;
+    }
+};
+
+export default sendMail;
