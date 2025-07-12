@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import swaggerUi from "swagger-ui-express";
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ import contactsRouter from "./routes/contactsRouter.js";
 import authRouter from "./routes/authRouter.js";
 import { connectToDatabase } from "./db/connection.js";
 import sequelize from "./db/connection.js";
+import swaggerSpecs from "./swagger/config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,6 +23,22 @@ app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+
+// Swagger documentation route
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: Redirects to API documentation
+ *     responses:
+ *       302:
+ *         description: Redirect to API documentation
+ */
+app.get("/", (req, res) => {
+  res.redirect("/api-docs");
+});
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs, { explorer: true }));
 
 app.use("/api/auth", authRouter);
 app.use("/api/contacts", contactsRouter);

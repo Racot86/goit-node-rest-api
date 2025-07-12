@@ -19,6 +19,27 @@ This is a RESTful API for managing contacts with JWT authentication.
    ```
 4. Start the server: `npm start` or `npm run dev` for development
 
+## API Documentation with Swagger
+
+This API is documented using Swagger. You can access the interactive API documentation at:
+
+```
+http://localhost:3000/api-docs
+```
+
+The Swagger UI provides:
+- A comprehensive list of all available endpoints
+- Request parameters, body schemas, and response formats
+- The ability to try out API calls directly from the browser
+- Authentication using JWT tokens
+
+To use the authenticated endpoints in Swagger UI:
+1. Execute the login endpoint to get a token
+2. Click the "Authorize" button at the top of the page
+3. Enter your token in the format: `Bearer YOUR_TOKEN`
+4. Click "Authorize" and close the modal
+5. Now you can access the authenticated endpoints
+
 ## Authentication Endpoints
 
 ### Register a new user
