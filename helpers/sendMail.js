@@ -18,15 +18,13 @@ const transporter = nodemailer.createTransport(config);
 const sendMail = async (options = {}) => {
     const emailOptions = {
         from: 'goitnodeapp@ukr.net',
-        to: 'mayevskydv@gmail.com',
         subject: 'Nodemailer test',
         text: 'Привіт. Ми тестуємо надсилання листів!',
         ...options
     };
 
     try {
-        const info = await transporter.sendMail(emailOptions);
-        return info;
+        return await transporter.sendMail(emailOptions);
     } catch (error) {
         console.error('Error sending email:', error);
         throw error;

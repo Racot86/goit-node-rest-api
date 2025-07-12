@@ -15,6 +15,7 @@ This is a RESTful API for managing contacts with JWT authentication.
    DB_PASSWORD=your_db_password
    PORT=3000
    JWT_SECRET=your_jwt_secret
+   MAIL_APP_PASSWORD=your_mail_app_password
    ```
 4. Start the server: `npm start` or `npm run dev` for development
 
@@ -90,6 +91,52 @@ Response:
 ```json
 {
   "avatarURL": "/avatars/1_image.jpg"
+}
+```
+
+### Email Verification
+
+After registration, users need to verify their email before they can log in. A verification email is sent to the user's email address with a link to verify their account.
+
+#### Verify Email
+```bash
+curl -X GET http://localhost:3000/api/auth/verify/YOUR_VERIFICATION_TOKEN
+```
+
+Response (success):
+```json
+{
+  "message": "Verification successful"
+}
+```
+
+Response (token not found):
+```json
+{
+  "message": "User not found"
+}
+```
+
+#### Resend Verification Email
+If the verification email is lost or expired, users can request a new one:
+
+```bash
+curl -X POST http://localhost:3000/api/auth/verify \
+  -H "Content-Type: application/json" \
+  -d '{"email": "user@example.com"}'
+```
+
+Response (success):
+```json
+{
+  "message": "Verification email sent"
+}
+```
+
+Response (already verified):
+```json
+{
+  "message": "Verification has already been passed"
 }
 ```
 
@@ -226,10 +273,22 @@ Authorization: Bearer {{token}}
 {
   "favorite": true
 }
+
+### Verify Email
+GET http://localhost:3000/api/auth/verify/YOUR_VERIFICATION_TOKEN
+
+### Resend Verification Email
+POST http://localhost:3000/api/auth/verify
+Content-Type: application/json
+
+{
+  "email": "user@example.com"
+}
 ```
 
 3. After login, replace `YOUR_TOKEN_HERE` with the actual token from the login response
-4. Click "Send Request" above each request to execute it
+4. For the verify email endpoint, replace `YOUR_VERIFICATION_TOKEN` with the token received in the email
+5. Click "Send Request" above each request to execute it
 
 ## Important Notes:
 - Make sure your server is running (`npm start` or `npm run dev`)
