@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport(config);
 
 const sendMail = async (options = {}) => {
     const emailOptions = {
-        from: 'goitnodeapp@ukr.net',
+        from: process.env.MAIL_APP_USER,
         subject: 'Nodemailer test',
         text: 'Привіт. Ми тестуємо надсилання листів!',
         ...options
