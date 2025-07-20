@@ -6,7 +6,9 @@ This is a RESTful API for managing contacts with JWT authentication.
 
 1. Clone the repository
 2. Install dependencies: `npm install`
-3. Set up environment variables in `.env` file:
+3. Set up environment variables:
+   - Copy the `.env.example` file to a new file named `.env`
+   - Fill in your actual values in the `.env` file:
    ```
    DB_HOST=your_db_host
    DB_PORT=your_db_port
@@ -15,7 +17,8 @@ This is a RESTful API for managing contacts with JWT authentication.
    DB_PASSWORD=your_db_password
    PORT=3000
    JWT_SECRET=your_jwt_secret
-   MAIL_APP_PASSWORD=your_mail_app_password
+   MAIL_APP_USER=your_email_address
+   MAIL_APP_PASSWORD=your_email_password
    ```
 4. Start the server: `npm start` or `npm run dev` for development
 

@@ -8,7 +8,7 @@ const config = {
     port: 465,
     secure: true,
     auth: {
-        user: 'goitnodeapp@ukr.net',
+        user: process.env.MAIL_APP_USER,
         pass: process.env.MAIL_APP_PASSWORD,
     },
 };
